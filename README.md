@@ -24,28 +24,28 @@ El proyecto implementa la arquitectura **Cliente-Servidor** mediante el protocol
 ```mermaid
 flowchart TD
     subgraph Clientes["Capa de Clientes"]
-        CLI["Cliente de Consola\n(cliente.py / requests.Session)"]
-        WEB["Navegador Web / UI\n(HTML5 / CSS3 / Jinja)"]
-        TEST["Batería de Pruebas\n(test_api.py)"]
+        CLI["Cliente de Consola (cliente.py)"]
+        WEB["Navegador Web (HTML5 / CSS3)"]
+        TEST["Batería de Pruebas (test_api.py)"]
     end
 
     subgraph ServidorFlask["Servidor API Flask (servidor.py)"]
-        ROUTER["Router & Controladores\nEndpoints REST"]
-        AUTH["Módulo de Seguridad\n(werkzeug.security)\nHash + Salt PBKDF2/scrypt"]
-        SESSION["Gestor de Sesiones\n(Cookies de Sesión Cifradas)"]
+        ROUTER["Router y Controladores REST"]
+        AUTH["Módulo de Seguridad (werkzeug.security)"]
+        SESSION["Gestor de Sesiones y Cookies"]
     end
 
     subgraph Persistencia["Capa de Datos Persistente"]
-        SQLITE[("Base de Datos SQLite\n(tareas.db)\nTablas: usuarios, tareas")]
+        SQLITE[("Base de Datos SQLite: tareas.db")]
     end
 
-    CLI -->|POST /registro, POST /login, GET /tareas, etc.| ROUTER
-    WEB -->|GET /tareas (HTML de bienvenida)| ROUTER
-    TEST -->|Suite automatizada HTTP| ROUTER
+    CLI -->|"POST /registro, POST /login, etc."| ROUTER
+    WEB -->|"GET /tareas (HTML de bienvenida)"| ROUTER
+    TEST -->|"Pruebas automatizadas HTTP"| ROUTER
 
     ROUTER <--> AUTH
     ROUTER <--> SESSION
-    ROUTER <-->|Consultas SQL parametrizadas| SQLITE
+    ROUTER <-->|"Consultas SQL parametrizadas"| SQLITE
 ```
 
 ### Especificación de Endpoints
