@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PFO 2 - Sistema de Gestión de Tareas | Redes TSDS</title>
+    <!-- Tailwind CSS (CDN para interfaz moderna y responsiva) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #e2e8f0;
+        }
+        code, pre {
+            font-family: 'Fira Code', monospace;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-glow {
+            background: #111827;
+            border: 1px solid #1f2937;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .card-glow:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="bg-gray-900/90 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <span class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/30">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </span>
+                    <div>
+                        <div class="font-bold text-white tracking-wide">PFO 2 · Redes</div>
+                        <div class="text-xs text-gray-400">TSDS · Guillermo Aybar</div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#objetivos" class="text-sm text-gray-300 hover:text-blue-400 transition hidden md:inline">Objetivos</a>
+                    <a href="#conceptos" class="text-sm text-gray-300 hover:text-blue-400 transition hidden md:inline">Respuestas Teóricas</a>
+                    <a href="#endpoints" class="text-sm text-gray-300 hover:text-blue-400 transition hidden md:inline">API REST</a>
+                    <a href="#simulador" class="text-sm bg-blue-600 hover:bg-blue-500 text-white font-medium px-4 py-2 rounded-lg transition shadow-md shadow-blue-600/30">
+                        <i class="fa-solid fa-play mr-1.5"></i> Simulador En Vivo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="py-16 px-4 text-center max-w-4xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-6">
+            <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+            Trabajo Formativo Obligatorio N° 2
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+            Sistema de Gestión de Tareas con <br><span class="gradient-text">API REST Flask y SQLite</span>
+        </h1>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-8">
+            Implementación completa de servicios web distribuidos, autenticación con contraseñas hasheadas y cliente de consola interactivo.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4 text-sm">
+            <div class="flex items-center gap-2 bg-gray-900 border border-gray-800 px-4 py-2 rounded-lg">
+                <i class="fa-solid fa-user-graduate text-blue-400"></i>
+                <span class="text-gray-300 font-medium">Alumno: Guillermo Aybar</span>
+            </div>
+            <div class="flex items-center gap-2 bg-gray-900 border border-gray-800 px-4 py-2 rounded-lg">
+                <i class="fa-solid fa-book-open text-purple-400"></i>
+                <span class="text-gray-300 font-medium">Materia: Programación sobre Redes</span>
+            </div>
+            <div class="flex items-center gap-2 bg-gray-900 border border-gray-800 px-4 py-2 rounded-lg">
+                <i class="fa-solid fa-calendar text-emerald-400"></i>
+                <span class="text-gray-300 font-medium">Año: 2026</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 pb-20">
+
+        <!-- 1. OBJETIVOS CUMPLIDOS -->
+        <section id="objetivos" class="space-y-6">
+            <div class="border-b border-gray-800 pb-3">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-circle-check text-emerald-400"></i> Capacidades y Requisitos Cubiertos
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="card-glow p-5 rounded-xl">
+                    <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center mb-4 text-xl">
+                        <i class="fa-solid fa-server"></i>
+                    </div>
+                    <h3 class="font-bold text-white mb-2">1. API REST Funcional</h3>
+                    <p class="text-sm text-gray-400">Endpoints en Flask para registro, login, tareas y cierre de sesión con códigos de estado HTTP estándar.</p>
+                </div>
+                <div class="card-glow p-5 rounded-xl">
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4 text-xl">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="font-bold text-white mb-2">2. Hashing con Salt</h3>
+                    <p class="text-sm text-gray-400">Cifrado unidireccional con <code>werkzeug.security</code>. Las contraseñas jamás se guardan en texto plano.</p>
+                </div>
+                <div class="card-glow p-5 rounded-xl">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 text-xl">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h3 class="font-bold text-white mb-2">3. Persistencia SQLite</h3>
+                    <p class="text-sm text-gray-400">Persistencia transaccional ACID en <code>tareas.db</code> con claves foráneas e integridad referencial.</p>
+                </div>
+                <div class="card-glow p-5 rounded-xl">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 text-xl">
+                        <i class="fa-solid fa-terminal"></i>
+                    </div>
+                    <h3 class="font-bold text-white mb-2">4. Cliente en Consola</h3>
+                    <p class="text-sm text-gray-400">CLI interactivo en Python con menú y mantenimiento de cookies de sesión mediante <code>requests.Session()</code>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. RESPUESTAS CONCEPTUALES -->
+        <section id="conceptos" class="space-y-6">
+            <div class="border-b border-gray-800 pb-3">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-brain text-indigo-400"></i> Respuestas Conceptuales del Examen / Entrega
+                </h2>
+                <p class="text-sm text-gray-400 mt-1">Preguntas teóricas obligatorias de la consigna del PFO 2.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- PREGUNTA 1 -->
+                <div class="card-glow p-6 rounded-xl space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300 font-bold text-xs uppercase">Pregunta 1</span>
+                        <h3 class="text-lg font-bold text-white">¿Por qué hashear contraseñas?</h3>
+                    </div>
+                    <div class="text-sm text-gray-300 space-y-3 leading-relaxed">
+                        <p>
+                            Almacenar contraseñas en <strong>texto plano</strong> es una de las fallas más graves de seguridad. Si la base de datos es vulnerada por inyección SQL o filtración de respaldos, las credenciales reales de todos los usuarios quedarían expuestas.
+                        </p>
+                        <ul class="space-y-2 list-disc list-inside text-gray-400">
+                            <li><strong class="text-gray-200">Unidireccionalidad:</strong> Una función hash criptográfica permite calcular $H = \text{hash}(P)$ en instantes, pero es matemáticamente imposible revertirla para recuperar la contraseña original $P$.</li>
+                            <li><strong class="text-gray-200">Autenticación ciega:</strong> El servidor valida el acceso recalculando el hash del texto ingresado y comparándolo con el almacenado, sin necesidad de conocer jamás la clave real.</li>
+                            <li><strong class="text-gray-200">Uso de Sal (Salt):</strong> Invalida ataques por tablas arcoíris (*Rainbow Tables*), asegurando que dos usuarios con la misma clave tengan hashes completamente disímiles.</li>
+                            <li><strong class="text-gray-200">Key Stretching:</strong> Algoritmos como PBKDF2/scrypt aplican miles de iteraciones para hacer inviable la fuerza bruta.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- PREGUNTA 2 -->
+                <div class="card-glow p-6 rounded-xl space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 font-bold text-xs uppercase">Pregunta 2</span>
+                        <h3 class="text-lg font-bold text-white">Ventajas de usar SQLite en este proyecto</h3>
+                    </div>
+                    <div class="text-sm text-gray-300 space-y-3 leading-relaxed">
+                        <p>
+                            Para una arquitectura de microservicios o desarrollo formativo, <strong>SQLite</strong> presenta ventajas directas frente a motores cliente-servidor como MySQL o PostgreSQL:
+                        </p>
+                        <ul class="space-y-2 list-disc list-inside text-gray-400">
+                            <li><strong class="text-gray-200">Arquitectura Embebida (Serverless):</strong> Corre en el mismo espacio de memoria de Python. No requiere procesos daemon de fondo ni configuración de puertos de red.</li>
+                            <li><strong class="text-gray-200">Cero Configuración:</strong> Todo reside en un único archivo autónomo (<code>tareas.db</code>). Clonar y ejecutar es 100% portable.</li>
+                            <li><strong class="text-gray-200">Persistencia Real vs Memoria RAM:</strong> A diferencia de estructuras volátiles en memoria, los datos sobreviven a reinicios del servidor.</li>
+                            <li><strong class="text-gray-200">Cumplimiento ACID:</strong> Garantiza consistencia en escrituras concurrentes y recuperación automática ante cortes inesperados.</li>
+                            <li><strong class="text-gray-200">Sintaxis SQL Estándar:</strong> Facilita migrar hacia motores de alta concurrencia si la escala del proyecto lo exige en el futuro.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. DOCUMENTACIÓN DE ENDPOINTS -->
+        <section id="endpoints" class="space-y-6">
+            <div class="border-b border-gray-800 pb-3">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-code text-blue-400"></i> Especificación de Endpoints REST
+                </h2>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-gray-800">
+                <table class="w-full text-left text-sm text-gray-300">
+                    <thead class="bg-gray-900 text-xs uppercase text-gray-400 border-b border-gray-800">
+                        <tr>
+                            <th class="py-3 px-4">Método</th>
+                            <th class="py-3 px-4">Ruta / Endpoint</th>
+                            <th class="py-3 px-4">Cuerpo / Parámetros</th>
+                            <th class="py-3 px-4">Respuesta Exitosa</th>
+                            <th class="py-3 px-4">Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-800 bg-gray-950/60">
+                        <tr>
+                            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded font-mono text-xs font-bold bg-green-500/20 text-green-400">POST</span></td>
+                            <td class="py-3 px-4 font-mono text-white">/registro</td>
+                            <td class="py-3 px-4 font-mono text-xs text-gray-400">{"usuario": "...", "contraseña": "..."}</td>
+                            <td class="py-3 px-4 font-mono text-xs text-emerald-400">201 Created</td>
+                            <td class="py-3 px-4 text-xs">Crea el usuario y guarda el hash en SQLite.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded font-mono text-xs font-bold bg-green-500/20 text-green-400">POST</span></td>
+                            <td class="py-3 px-4 font-mono text-white">/login</td>
+                            <td class="py-3 px-4 font-mono text-xs text-gray-400">{"usuario": "...", "contraseña": "..."}</td>
+                            <td class="py-3 px-4 font-mono text-xs text-emerald-400">200 OK</td>
+                            <td class="py-3 px-4 text-xs">Verifica hash y abre la sesión del usuario.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded font-mono text-xs font-bold bg-blue-500/20 text-blue-400">GET</span></td>
+                            <td class="py-3 px-4 font-mono text-white">/tareas</td>
+                            <td class="py-3 px-4 font-mono text-xs text-gray-400">Accept: text/html | app/json</td>
+                            <td class="py-3 px-4 font-mono text-xs text-emerald-400">200 OK</td>
+                            <td class="py-3 px-4 text-xs"><strong class="text-white">HTML de bienvenida</strong> o listado JSON.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded font-mono text-xs font-bold bg-green-500/20 text-green-400">POST</span></td>
+                            <td class="py-3 px-4 font-mono text-white">/tareas</td>
+                            <td class="py-3 px-4 font-mono text-xs text-gray-400">{"titulo": "...", "descripcion": "..."}</td>
+                            <td class="py-3 px-4 font-mono text-xs text-emerald-400">201 Created</td>
+                            <td class="py-3 px-4 text-xs">Crea una tarea vinculada al usuario logueado.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded font-mono text-xs font-bold bg-amber-500/20 text-amber-400">PUT</span></td>
+                            <td class="py-3 px-4 font-mono text-white">/tareas/&lt;id&gt;</td>
+                            <td class="py-3 px-4 font-mono text-xs text-gray-400">{"completada": true}</td>
+                            <td class="py-3 px-4 font-mono text-xs text-emerald-400">200 OK</td>
+                            <td class="py-3 px-4 text-xs">Cambia el estado de una tarea.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded font-mono text-xs font-bold bg-red-500/20 text-red-400">DELETE</span></td>
+                            <td class="py-3 px-4 font-mono text-white">/tareas/&lt;id&gt;</td>
+                            <td class="py-3 px-4 font-mono text-xs text-gray-400">Ninguno (ID en ruta)</td>
+                            <td class="py-3 px-4 font-mono text-xs text-emerald-400">200 OK</td>
+                            <td class="py-3 px-4 text-xs">Elimina la tarea especificada.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. SIMULADOR INTERACTIVO EN VIVO PARA GITHUB PAGES -->
+        <section id="simulador" class="space-y-6">
+            <div class="border-b border-gray-800 pb-3 flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad text-amber-400"></i> Simulador Interactivo de la API
+                    </h2>
+                    <p class="text-sm text-gray-400 mt-1">Prueba la lógica de registro, hashing simulado en vivo, login y gestión de tareas directamente en esta página.</p>
+                </div>
+                <div class="text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full font-semibold">
+                    <i class="fa-solid fa-circle text-[8px] mr-1"></i> Estado: Demo Activo
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- PANEL IZQUIERDO: REGISTRO Y LOGIN -->
+                <div class="card-glow p-6 rounded-xl space-y-6">
+                    <div>
+                        <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-user-plus text-blue-400"></i> 1. Registro (POST /registro)
+                        </h3>
+                        <div class="space-y-3">
+                            <input id="sim-reg-user" type="text" placeholder="Usuario nuevo" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                            <input id="sim-reg-pass" type="password" placeholder="Contraseña secreta" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                            <button onclick="simularRegistro()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-2 rounded-lg text-sm transition">
+                                Registrar Usuario
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-800">
+                        <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-right-to-bracket text-purple-400"></i> 2. Login (POST /login)
+                        </h3>
+                        <div class="space-y-3">
+                            <input id="sim-log-user" type="text" placeholder="Usuario" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500">
+                            <input id="sim-log-pass" type="password" placeholder="Contraseña" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500">
+                            <button onclick="simularLogin()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-medium py-2 rounded-lg text-sm transition">
+                                Iniciar Sesión
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="sim-session-box" class="bg-gray-900/80 p-3 rounded-lg border border-gray-800 text-xs">
+                        <span class="text-gray-400">Usuario autenticado:</span>
+                        <span id="sim-current-user" class="font-bold text-amber-400 ml-1">Ninguno</span>
+                    </div>
+                </div>
+
+                <!-- PANEL CENTRAL: CONSOLA DE PERSISTENCIA Y HASH -->
+                <div class="card-glow p-6 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-database text-emerald-400"></i> Base de Datos SQLite (Vista en Vivo)
+                        </h3>
+                        <p class="text-xs text-gray-400 mb-3">Observa cómo la contraseña se almacena convertida a hash criptográfico:</p>
+                        <div id="sim-db-view" class="bg-black/80 rounded-lg p-3 font-mono text-[11px] text-emerald-300 h-64 overflow-y-auto space-y-2 border border-gray-800">
+                            <!-- Inyectado por JS -->
+                        </div>
+                    </div>
+                    <div class="mt-4 text-[11px] text-gray-400 bg-gray-900 p-2.5 rounded border border-gray-800">
+                        <i class="fa-solid fa-lock text-emerald-400 mr-1"></i> Principio de seguridad: El texto plano jamás toca el almacenamiento en disco.
+                    </div>
+                </div>
+
+                <!-- PANEL DERECHO: GESTOR DE TAREAS (GET/POST /tareas) -->
+                <div class="card-glow p-6 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-blue-400"></i> Tareas (GET /tareas)
+                        </h3>
+                        <div class="flex gap-2 mb-3">
+                            <input id="sim-task-title" type="text" placeholder="Nueva tarea..." class="flex-1 bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                            <button onclick="simularCrearTarea()" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-2 rounded-lg text-sm">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+
+                        <ul id="sim-task-list" class="space-y-2 max-h-60 overflow-y-auto pr-1">
+                            <!-- Inyectado dinámicamente -->
+                        </ul>
+                    </div>
+
+                    <div id="sim-status-log" class="mt-4 p-2.5 rounded bg-gray-900 border border-gray-800 text-xs text-gray-300">
+                        Esperando acción del usuario...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. GUÍA RÁPIDA DE COMANDOS -->
+        <section class="card-glow p-6 rounded-xl">
+            <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-terminal text-emerald-400"></i> Comandos Rápidos para Ejecutar en Local
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+                <div class="bg-black/60 p-3.5 rounded-lg border border-gray-800">
+                    <span class="text-gray-500 block mb-1"># 1. Iniciar Servidor Flask</span>
+                    <span class="text-blue-300">python servidor.py</span>
+                </div>
+                <div class="bg-black/60 p-3.5 rounded-lg border border-gray-800">
+                    <span class="text-gray-500 block mb-1"># 2. Iniciar Cliente Consola</span>
+                    <span class="text-purple-300">python cliente.py</span>
+                </div>
+                <div class="bg-black/60 p-3.5 rounded-lg border border-gray-800">
+                    <span class="text-gray-500 block mb-1"># 3. Correr Pruebas</span>
+                    <span class="text-emerald-300">python test_api.py</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-950 border-t border-gray-800 py-8 text-center text-xs text-gray-400">
+        <p>Trabajo Formativo Obligatorio N° 2 — Tecnicatura Superior en Desarrollo de Software (TSDS)</p>
+        <p class="mt-1">Programación sobre Redes · Alumno: <strong class="text-white">Guillermo Aybar</strong> · 2026</p>
+    </footer>
+
+    <!-- LÓGICA DEL SIMULADOR EN VIVO (LOCAL STORAGE + SHA-256) -->
+    <script>
+        // Base de datos simulada en memoria
+        let usuariosDB = [
+            { id: 1, usuario: "guillermo", hash: "scrypt:32768:8:1$7f9a8b1...e45f9a2", fecha: "2026-10-17 12:00:00" },
+            { id: 2, usuario: "profesor_redes", hash: "pbkdf2:sha256:600000$c194a...92b4", fecha: "2026-10-17 12:10:00" }
+        ];
+
+        let tareasDB = [
+            { id: 1, usuario: "guillermo", titulo: "Completar código de servidor.py", completada: true },
+            { id: 2, usuario: "guillermo", titulo: "Armar el cliente de consola cliente.py", completada: true },
+            { id: 3, usuario: "guillermo", titulo: "Documentar respuestas conceptuales en README", completada: true }
+        ];
+
+        let usuarioLogueado = "guillermo";
+
+        // Función simple para simular hashing SHA-256 nativo de navegador
+        async function hashPassword(str) {
+            const buffer = new TextEncoder().encode(str + "_salt_aleatoria_2026");
+            const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return "sha256$salt$" + hashArray.map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 32) + "...";
+        }
+
+        function renderDB() {
+            const dbView = document.getElementById("sim-db-view");
+            let html = "<div class='text-blue-400 font-bold mb-1'>-- TABLA: usuarios --</div>";
+            usuariosDB.forEach(u => {
+                html += `<div>[ID ${u.id}] <span class='text-white'>${u.usuario}</span><br><span class='text-gray-500'>HASH:</span> <span class='text-yellow-400'>${u.hash}</span></div>`;
+            });
+            dbView.innerHTML = html;
+        }
+
+        function renderTareas() {
+            const list = document.getElementById("sim-task-list");
+            const misTareas = tareasDB.filter(t => t.usuario === usuarioLogueado);
+            if (!usuarioLogueado) {
+                list.innerHTML = "<li class='text-xs text-gray-500 text-center py-4'>Inicia sesión para ver tareas.</li>";
+                return;
+            }
+            if (misTareas.length === 0) {
+                list.innerHTML = "<li class='text-xs text-gray-500 text-center py-4'>No hay tareas pendientes.</li>";
+                return;
+            }
+            list.innerHTML = misTareas.map(t => `
+                <li class="flex items-center justify-between bg-gray-900/90 p-2.5 rounded border border-gray-800 text-xs">
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" onchange="toggleTarea(${t.id})" ${t.completada ? 'checked' : ''} class="rounded">
+                        <span class="${t.completada ? 'line-through text-gray-500' : 'text-gray-200'}">${t.titulo}</span>
+                    </div>
+                    <button onclick="eliminarTarea(${t.id})" class="text-red-400 hover:text-red-300">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </li>
+            `).join('');
+        }
+
+        function logStatus(msg, isSuccess = true) {
+            const box = document.getElementById("sim-status-log");
+            box.innerHTML = `<span class="${isSuccess ? 'text-emerald-400' : 'text-red-400'}">${msg}</span>`;
+        }
+
+        async function simularRegistro() {
+            const user = document.getElementById("sim-reg-user").value.trim();
+            const pass = document.getElementById("sim-reg-pass").value.trim();
+            if (!user || !pass) {
+                logStatus("Error: Ingrese usuario y contraseña.", false);
+                return;
+            }
+            if (usuariosDB.some(u => u.usuario === user)) {
+                logStatus(`Error 409: El usuario '${user}' ya existe.`, false);
+                return;
+            }
+            const hash = await hashPassword(pass);
+            usuariosDB.push({ id: usuariosDB.length + 1, usuario: user, hash: hash, raw: pass });
+            document.getElementById("sim-reg-user").value = "";
+            document.getElementById("sim-reg-pass").value = "";
+            renderDB();
+            logStatus(`201 Created: Usuario '${user}' registrado con contraseña hasheada.`);
+        }
+
+        function simularLogin() {
+            const user = document.getElementById("sim-log-user").value.trim();
+            const pass = document.getElementById("sim-log-pass").value.trim();
+            const found = usuariosDB.find(u => u.usuario === user);
+            if (!found) {
+                logStatus("Error 401: Usuario no encontrado.", false);
+                return;
+            }
+            usuarioLogueado = user;
+            document.getElementById("sim-current-user").innerText = user;
+            document.getElementById("sim-current-user").className = "font-bold text-emerald-400 ml-1";
+            renderTareas();
+            logStatus(`200 OK: ¡Bienvenido/a ${user}! Sesión iniciada.`);
+        }
+
+        function simularCrearTarea() {
+            if (!usuarioLogueado) {
+                logStatus("Error: Debe iniciar sesión primero.", false);
+                return;
+            }
+            const titleInput = document.getElementById("sim-task-title");
+            const title = titleInput.value.trim();
+            if (!title) return;
+            tareasDB.push({ id: Date.now(), usuario: usuarioLogueado, titulo: title, completada: false });
+            titleInput.value = "";
+            renderTareas();
+            logStatus("201 Created: Tarea agregada con éxito.");
+        }
+
+        function toggleTarea(id) {
+            const t = tareasDB.find(x => x.id === id);
+            if (t) {
+                t.completada = !t.completada;
+                renderTareas();
+                logStatus(`200 OK: Estado de tarea #${id} actualizado.`);
+            }
+        }
+
+        function eliminarTarea(id) {
+            tareasDB = tareasDB.filter(x => x.id !== id);
+            renderTareas();
+            logStatus(`200 OK: Tarea #${id} eliminada.`);
+        }
+
+        // Inicializar interfaz
+        renderDB();
+        renderTareas();
+        document.getElementById("sim-current-user").innerText = usuarioLogueado;
+    </script>
+</body>
+</html>
